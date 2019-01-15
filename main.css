@@ -1,0 +1,125 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400);
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background: #e0e0e0;
+  color: #434343;
+  font: 16px normal Lato, Tahoma, Geneva, sans-serif;
+}
+
+body { 
+  padding: 10px;
+}
+
+header {
+  padding: 10px 0;
+  text-align: center;
+  
+  h1 {
+    cursor: default;
+    font-size: 1.5em;
+    line-height: 1.25em;
+  }
+}
+
+nav {
+  border-bottom: 1px solid #b7b7b7;
+  border-top: 1px solid #b7b7b7;
+  margin: 10px 0;
+  padding: 10px;
+  
+  ul li a {
+    color: #5694d0;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      color: #4abae9;
+    }
+  }
+}
+
+footer {
+  font-size: .85em;
+  padding-top: 20px;
+  text-align: right;
+}
+
+.page {
+  padding: 10px;
+  
+  h2 {
+    cursor: default;
+    font-size: 1.25em;
+  }
+  
+  p {
+    cursor: default;
+    line-height: 1.25em;
+    margin: 10px 0;
+    overflow: hidden;
+    
+    img {
+      float: left;
+      padding: 10px 10px 10px 0;
+    }
+  }
+}
+
+#main {
+  > * {
+    display: none;
+  }
+  
+  > *:target,
+  > *:last-child {
+    display: block;
+  }
+  
+  > *:target {
+    animation: bounceIn .75s;
+  }
+  
+  > *:target ~ * {
+    display: none;
+  }
+}
+
+@keyframes bounceIn {
+  from, 20%, 40%, 60%, 80%, to {
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+
+  20% {
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  40% {
+    transform: scale3d(.9, .9, .9);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+
+  80% {
+    transform: scale3d(.97, .97, .97);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}

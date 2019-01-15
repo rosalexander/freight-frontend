@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard Template</title>
+  <meta name="google" content="notranslate">
+  <link rel="stylesheet" type="text/css" href="dashboard.css">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+  <script type="text/javascript" src="dashboard.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+  <meta name="description" content="WebRTC code samples">
+  <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+  <meta itemprop="description" content="Client-side WebRTC code samples">
+  <meta itemprop="image" content="../../../images/webrtc-icon-192x192.png">
+  <meta itemprop="name" content="WebRTC code samples">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta id="theme-color" name="theme-color" content="#ffffff">
+  <style>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    #map {
+      height: 50em;
+/*      width:100px;
+*/    }
+  </style>
+  <script type="text/javascript" src="scanner/grid.js"></script>
+  <script type="text/javascript" src="scanner/version.js"></script>
+  <script type="text/javascript" src="scanner/detector.js"></script>
+  <script type="text/javascript" src="scanner/formatinf.js"></script>
+  <script type="text/javascript" src="scanner/errorlevel.js"></script>
+  <script type="text/javascript" src="scanner/bitmat.js"></script>
+  <script type="text/javascript" src="scanner/datablock.js"></script>
+  <script type="text/javascript" src="scanner/bmparser.js"></script>
+  <script type="text/javascript" src="scanner/datamask.js"></script>
+  <script type="text/javascript" src="scanner/rsdecoder.js"></script>
+  <script type="text/javascript" src="scanner/gf256poly.js"></script>
+  <script type="text/javascript" src="scanner/gf256.js"></script>
+  <script type="text/javascript" src="scanner/decoder.js"></script>
+  <script type="text/javascript" src="scanner/qrcode.js"></script>
+  <script type="text/javascript" src="scanner/findpat.js"></script>
+  <script type="text/javascript" src="scanner/alignpat.js"></script>
+  <script type="text/javascript" src="scanner/databr.js"></script>
+
+
+
+
+
+</head>
+
+
+<body>
+
+
+
+<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Company name</a>
+  <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+  <ul class="navbar-nav px-3">
+    <li class="nav-item text-nowrap">
+      <a class="nav-link" href="#">Sign out</a>
+    </li>
+  </ul>
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="#dashboard">
+              <span data-feather="home"></span>
+              Dashboard <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#qr" onclick="initScan();">
+              <span data-feather="file"></span>
+              QR Scanner
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#routes">
+              <span data-feather="shopping-cart"></span>
+              Routes
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="users"></span>
+              Customers
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="bar-chart-2"></span>
+              Reports
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="layers"></span>
+              Integrations
+            </a>
+          </li>
+        </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>Saved reports</span>
+          <a class="d-flex align-items-center text-muted" href="#">
+            <span data-feather="plus-circle"></span>
+          </a>
+        </h6>
+        <ul class="nav flex-column mb-2">
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="file-text"></span>
+              Current month
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="file-text"></span>
+              Last quarter
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="file-text"></span>
+              Social engagement
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="file-text"></span>
+              Year-end sale
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <section id="main" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+      <div id="dashboard">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" >
+          <h1 class="h2">Dashboard1</h1>
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+              <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+            </div>
+            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+              <span data-feather="calendar"></span>
+              This week
+            </button>
+          </div>
+        </div>
+
+        <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+
+        <h2>Section title</h2>
+        <div class="table-responsive">
+          <table class="table table-striped table-sm">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Header</th>
+                <th>Header</th>
+                <th>Header</th>
+                <th>Header</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1,001</td>
+                <td>Lorem</td>
+                <td>ipsum</td>
+                <td>dolor</td>
+                <td>sit</td>
+              </tr>
+              <tr>
+                <td>1,002</td>
+                <td>amet</td>
+                <td>consectetur</td>
+                <td>adipiscing</td>
+                <td>elit</td>
+              </tr>
+              <tr>
+                <td>1,003</td>
+                <td>Integer</td>
+                <td>nec</td>
+                <td>odio</td>
+                <td>Praesent</td>
+              </tr>
+              <tr>
+                <td>1,003</td>
+                <td>libero</td>
+                <td>Sed</td>
+                <td>cursus</td>
+                <td>ante</td>
+              </tr>
+              <tr>
+                <td>1,004</td>
+                <td>dapibus</td>
+                <td>diam</td>
+                <td>Sed</td>
+                <td>nisi</td>
+              </tr>
+              <tr>
+                <td>1,005</td>
+                <td>Nulla</td>
+                <td>quis</td>
+                <td>sem</td>
+                <td>at</td>
+              </tr>
+              <tr>
+                <td>1,006</td>
+                <td>nibh</td>
+                <td>elementum</td>
+                <td>imperdiet</td>
+                <td>Duis</td>
+              </tr>
+              <tr>
+                <td>1,007</td>
+                <td>sagittis</td>
+                <td>ipsum</td>
+                <td>Praesent</td>
+                <td>mauris</td>
+              </tr>
+              <tr>
+                <td>1,008</td>
+                <td>Fusce</td>
+                <td>nec</td>
+                <td>tellus</td>
+                <td>sed</td>
+              </tr>
+              <tr>
+                <td>1,009</td>
+                <td>augue</td>
+                <td>semper</td>
+                <td>porta</td>
+                <td>Mauris</td>
+              </tr>
+              <tr>
+                <td>1,010</td>
+                <td>massa</td>
+                <td>Vestibulum</td>
+                <td>lacinia</td>
+                <td>arcu</td>
+              </tr>
+              <tr>
+                <td>1,011</td>
+                <td>eget</td>
+                <td>nulla</td>
+                <td>Class</td>
+                <td>aptent</td>
+              </tr>
+              <tr>
+                <td>1,012</td>
+                <td>taciti</td>
+                <td>sociosqu</td>
+                <td>ad</td>
+                <td>litora</td>
+              </tr>
+              <tr>
+                <td>1,013</td>
+                <td>torquent</td>
+                <td>per</td>
+                <td>conubia</td>
+                <td>nostra</td>
+              </tr>
+              <tr>
+                <td>1,014</td>
+                <td>per</td>
+                <td>inceptos</td>
+                <td>himenaeos</td>
+                <td>Curabitur</td>
+              </tr>
+              <tr>
+                <td>1,015</td>
+                <td>sodales</td>
+                <td>ligula</td>
+                <td>in</td>
+                <td>libero</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="qr">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" >
+          <h1 class="h2">QR Scanner</h1>
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+              <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+            </div>
+            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+              <span data-feather="calendar"></span>
+              This week
+            </button>
+          </div>
+        </div>
+
+        <div class="video-container" style='position: relative;'>
+          <video id="video-preview" width="640" height="480" style="position: absolute; top:-50px; left:0px"></video>
+          <canvas id="qr-canvas" style="visibility: hidden;"></canvas>
+
+          <table id="qrtable" class="table" style="position:absolute; top:450px; left:0;">
+          <thead>
+            <tr>
+              <th scope="col">Scan Result</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+
+        </div>
+
+
+        
+      </div>
+
+      <div id="routes">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" >
+          <h1 class="h2">Routes</h1>
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+              <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+            </div>
+            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+              <span data-feather="calendar"></span>
+              This week
+            </button>
+          </div>
+        </div>
+
+        <div id="map"></div>
+
+        <form class="form-group" name="myForm" onsubmit="validateForm(); return false;" method="post">
+          <br>
+          <label for="exampleInputEmail1">Coordinates</label>
+          <br>
+          <input type="text" name="fname" placeholder="X, Y">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        
+      </div>
+
+    </section>
+
+
+  </div>
+</div>
+
+  <script type="text/javascript">
+    function initScan() {
+      /* Ask for "environnement" (rear) camera if available (mobile), will fallback to only available otherwise (desktop).
+       * User will be prompted if (s)he allows camera to be started */
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" }, audio: false }).then(function(stream) {
+        var video = document.getElementById("video-preview");
+        video.srcObject = stream;
+        video.setAttribute("playsinline", true); /* otherwise iOS safari starts fullscreen */
+        video.play();
+        setTimeout(tick, 100); /* We launch the tick function 100ms later (see next step) */
+      })
+      .catch(function(err) {
+        console.log(err); /* User probably refused to grant access*/
+      });
+    };
+
+    function tick() {
+      var video                   = document.getElementById("video-preview");
+      var qrCanvasElement         = document.getElementById("qr-canvas");
+      var qrCanvas                = qrCanvasElement.getContext("2d");
+      var width, height;
+      var table = document.getElementById("qrtable")
+
+
+      if (video.readyState === video.HAVE_ENOUGH_DATA) {
+        qrCanvasElement.height  = video.videoHeight;
+        qrCanvasElement.width   = video.videoWidth;
+        qrCanvas.drawImage(video, 0, 0, qrCanvasElement.width, qrCanvasElement.height);
+        try {
+          var result = qrcode.decode();
+          console.log(result)
+          // console.log(table)
+
+          var row = table.insertRow(-1)
+          var cell1 = row.insertCell(0)
+          cell1.innerHTML = result
+        } catch(e) {
+          /* No Op */
+        }
+      }
+
+      /* If no QR could be decoded from image copied in canvas */
+      var hash = window.location.hash.substr(1);
+      if (hash == "qr")
+        setTimeout(tick, 100);
+      else
+        video.srcObject.getTracks().forEach(track => track.stop());
+    };
+
+  </script>
+
+  <script>
+    var map;
+
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 0, lng: 0},
+        zoom: 8
+      });
+    }
+
+    function validateForm() {
+      var x = document.forms["myForm"]["fname"].value;
+      if (x == "") {
+        alert("Coordinates must be filled out");
+      } else {
+        let arr = x.split(", ");
+        let latlng = {lat: parseFloat(arr[0]), lng: parseFloat(arr[1])}
+
+        new google.maps.Marker({
+          position: latlng,
+          map: map
+        });
+      }
+    }
+  </script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4xYN4XfztUHCE54qT-7ecvFb9DjowQdU&callback=initMap"
+      async defer></script>
+  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+
+
+</body>
+</html>

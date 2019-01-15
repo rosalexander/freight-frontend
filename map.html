@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 400px;
+        width: 400px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="map"></div>
+
+    <form name="myForm" onsubmit="validateForm(); return false;" method="post">
+      Coordinates: <input type="text" name="fname">
+      <input type="submit" value="Submit">
+    </form>
+
+    <script>
+      var map;
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 0, lng: 0},
+          zoom: 8
+        });
+
+        // new google.maps.Marker({
+        //     position: {lat: -34.397, lng: 150.644},
+        //     map: map
+        //   });
+      }
+
+      function validateForm() {
+        var x = document.forms["myForm"]["fname"].value;
+        if (x == "") {
+          alert("Coordinates must be filled out");
+        } else {
+
+          alert(x);
+          let arr = x.split(", ");
+          let latlng = {lat: parseFloat(arr[0]), lng: parseFloat(arr[1])}
+
+          new google.maps.Marker({
+            position: latlng,
+            map: map
+          });
+        }
+      }
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4xYN4XfztUHCE54qT-7ecvFb9DjowQdU&callback=initMap"
+    async defer></script>
+  </body>
+</html>

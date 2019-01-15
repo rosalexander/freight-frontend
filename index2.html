@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="description" content="WebRTC code samples">
+  <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+  <meta itemprop="description" content="Client-side WebRTC code samples">
+  <meta itemprop="image" content="../../../images/webrtc-icon-192x192.png">
+  <meta itemprop="name" content="WebRTC code samples">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta id="theme-color" name="theme-color" content="#ffffff">
+  <title>Single-Page Application</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    #map {
+      height: 100px;
+    }
+  </style>
+  <script type="text/javascript" src="scanner/grid.js"></script>
+  <script type="text/javascript" src="scanner/version.js"></script>
+  <script type="text/javascript" src="scanner/detector.js"></script>
+  <script type="text/javascript" src="scanner/formatinf.js"></script>
+  <script type="text/javascript" src="scanner/errorlevel.js"></script>
+  <script type="text/javascript" src="scanner/bitmat.js"></script>
+  <script type="text/javascript" src="scanner/datablock.js"></script>
+  <script type="text/javascript" src="scanner/bmparser.js"></script>
+  <script type="text/javascript" src="scanner/datamask.js"></script>
+  <script type="text/javascript" src="scanner/rsdecoder.js"></script>
+  <script type="text/javascript" src="scanner/gf256poly.js"></script>
+  <script type="text/javascript" src="scanner/gf256.js"></script>
+  <script type="text/javascript" src="scanner/decoder.js"></script>
+  <script type="text/javascript" src="scanner/qrcode.js"></script>
+  <script type="text/javascript" src="scanner/findpat.js"></script>
+  <script type="text/javascript" src="scanner/alignpat.js"></script>
+  <script type="text/javascript" src="scanner/databr.js"></script>
+
+</head>
+
+<body>
+
+<!--   <header role="banner">
+    <h1>Single-Page Application</h1>
+  </header> -->
+
+
+
+  <nav class="sidebar">
+    <ul class="nav-main" role="navigation">
+      <li><a class="active" href="#qr" onclick="keepLocation(window.pageYOffset); initScan();">QR Scanner</a></li>
+      <li><a href="#route">Route</a></li>
+      <li><a href="#bids">Bids</a></li>
+    </ul>
+  </nav>
+
+
+  <section id="main" role="main">
+    <div id="route" class="page">
+      <div id="map"></div>
+
+      <form name="myForm" onsubmit="validateForm(); return false;" method="post">
+        Coordinates: <input type="text" name="fname">
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+    
+    <div id="bids" class="page">
+    </div>
+
+    <div id="qr" class="page">
+      <div class="video-container">
+        <video id="video-preview" width="640" height="480"></video>
+        <canvas id="qr-canvas" style="visibility: hidden;"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <script type="text/javascript">
+    function initScan() {
+      /* Ask for "environnement" (rear) camera if available (mobile), will fallback to only available otherwise (desktop).
+       * User will be prompted if (s)he allows camera to be started */
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" }, audio: false }).then(function(stream) {
+        var video = document.getElementById("video-preview");
+        video.srcObject = stream;
+        video.setAttribute("playsinline", true); /* otherwise iOS safari starts fullscreen */
+        video.play();
+        setTimeout(tick, 100); /* We launch the tick function 100ms later (see next step) */
+      })
+      .catch(function(err) {
+        console.log(err); /* User probably refused to grant access*/
+      });
+    };
+
+    function tick() {
+      var video                   = document.getElementById("video-preview");
+      var qrCanvasElement         = document.getElementById("qr-canvas");
+      var qrCanvas                = qrCanvasElement.getContext("2d");
+      var width, height;
+
+
+      if (video.readyState === video.HAVE_ENOUGH_DATA) {
+        qrCanvasElement.height  = video.videoHeight;
+        qrCanvasElement.width   = video.videoWidth;
+        qrCanvas.drawImage(video, 0, 0, qrCanvasElement.width, qrCanvasElement.height);
+        try {
+          var result = qrcode.decode();
+          console.log(result)
+        } catch(e) {
+          /* No Op */
+        }
+      }
+
+      /* If no QR could be decoded from image copied in canvas */
+      var hash = window.location.hash.substr(1);
+      if (hash == "qr")
+        setTimeout(tick, 100);
+      else
+        video.srcObject.getTracks().forEach(track => track.stop());
+    };
+
+  </script>
+
+
+  <script language="JavaScript" type="text/javascript">
+    <!--
+    function keepLocation(oldOffset) {
+      if (window.pageYOffset!= null){
+        st=oldOffset;
+      }
+      if (document.body.scrollWidth!= null){
+        st=oldOffset;
+      }
+      setTimeout('window.scrollTo(0,st)',10);
+    }
+    //-->
+  </script>
+
+  <script>
+    var map;
+
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 0, lng: 0},
+        zoom: 8
+      });
+    }
+
+    function validateForm() {
+      var x = document.forms["myForm"]["fname"].value;
+      if (x == "") {
+        alert("Coordinates must be filled out");
+      } else {
+
+        alert(x);
+        let arr = x.split(", ");
+        let latlng = {lat: parseFloat(arr[0]), lng: parseFloat(arr[1])}
+
+        new google.maps.Marker({
+          position: latlng,
+          map: map
+        });
+      }
+    }
+  </script>
+  <script src="build/qrcode.min.js"></script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4xYN4XfztUHCE54qT-7ecvFb9DjowQdU&callback=initMap"
+      async defer></script>
+  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+
+</body>
+
+</html>
