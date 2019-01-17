@@ -347,16 +347,126 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" >
           <h1 class="h2">Bids</h1>
           <div class="btn-toolbar mb-2 mb-md-0">
+            <div clas="btn-group mr-2" style="margin-right:5px">
+              <button type="button" class="btn btn-success">Accept</button>
+              <button type="button" class="btn btn-danger">Reject</button>
+            </div>
+
             <div class="btn-group mr-2">
               <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
               <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
             </div>
             <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
               <span data-feather="calendar"></span>
-              This week
+              Invoice 1
             </button>
           </div>
         </div>
+
+        <table id="bidtable" class="table table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Exporter Name</th>
+              <th scope="col">Exporter Address</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="col">The Electric Shop</th>
+              <th scope="col">
+                1 Plate Street
+                <br>
+                Brisbane, QLD, 4300
+                <br>
+                Australia
+              </th>
+            </tr>
+          </tbody>
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Consignee Name</th>
+              <th scope="col">Consignee Address</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="col">The SwitchGear CO. LTD</th>
+              <th scope="col">
+                Xiao Dong Shan Xiamen
+                <br>
+                Fujian, 361006
+                <br>
+                China
+              </th>
+            </tr>
+          </tbody>
+        </table>
+        <div class="table-responsive">
+        <table id="bidtable" class="table table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Method of Dispatch</th>
+              <th scope="col">Vessel/Aircraft</th>
+              <th scope="col">Type of Shipment</th>
+              <th scope="col">Voyage Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="col">Sea</th>
+              <th scope="col">Seamax Stanford</th>
+              <th scope="col">FCL</th>
+              <th scope="col">638E</th>
+            </tr>
+          </tbody>
+        </table>
+        <table id="bidtable" class="table table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Product Code</th>
+              <th scope="col">Description of Goods</th>
+              <th scope="col">Unit Quantity</th>
+              <th scope="col">Price</th>
+              <th scope="col">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="col">2216</th>
+              <th scope="col">Lightbub 2 x 37 watt</th>
+              <th scope="col">1000</th>
+              <th scope="col">4.00</th>
+              <th scope="col">4000.0</th>
+            </tr>
+            <tr>
+              <th scope="col">2218</th>
+              <th scope="col">Elecwire 20m</th>
+              <th scope="col">450</th>
+              <th scope="col">28.00</th>
+              <th scope="col">12600.0</th>
+            </tr>
+            <tr>
+              <th scope="col">2226</th>
+              <th scope="col">Cable wire 40m</th>
+              <th scope="col">70</th>
+              <th scope="col">482.00</th>
+              <th scope="col">33740.00</th>
+            </tr>
+          </tbody>
+        </table>
+        <table id="bidtable" class="table table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Total Amount</th>
+              <th scope="col">Method of Payment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <th scope="col">50340.00</th>
+            <th scope="col">50% deposit, 50% before shipment</th>
+          </tbody>
+        </table>
+      </div>
         
       </div>
 
